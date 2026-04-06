@@ -29,16 +29,24 @@ body {
   transition: background 0.5s ease, color 0.5s ease;
 }
 
-@font-face {
-    font-family: 'BookmanOld';
-    src: url('fonts/bookmanoldstyle.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 /* ── Audio ──────────────────────────────────────────────────────── */
 .song {
   display: none;
+}
+
+/* ── Load Bookman Old Style ─────────────────────────────── */
+@font-face {
+  font-family: 'BookmanOld';
+  src: url('../fonts/bookmanoldstyle.woff2') format('woff2'),
+       url('../fonts/bookmanoldstyle.woff') format('woff'),
+       url('../fonts/bookmanoldstyle.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ── Apply it globally ──────────────────────────────────── */
+body {
+    font-family: 'BookmanOld', serif;
 }
 
 /* ── Theme Toggle ──────────────────────────────────────────────── */
@@ -339,17 +347,22 @@ body {
   100% { opacity: 0.8; transform: scale(1.2); }
 }
 
-/* ── Fireworks ─────────────────────────────────────────────────── */
-.section-fireworks {
-  position: fixed !important;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
+/* ── Fireworks Sparks ─────────────────────────────── */
+.firework-spark {
+    position: absolute;
+    width: 2vw;
+    height: 2vw;
+    border-radius: 50%;
+    visibility: hidden;
 }
 
-.firework-spark {
-  position: absolute;
-  border-radius: 50%;
+/* ── Landscape Adjustments ───────────────────────── */
+@media (orientation: landscape) {
+    .confetti-dot,
+    .firework-spark {
+        width: 1.5vh;   /* use viewport height in landscape */
+        height: 1.5vh;
+    }
 }
 
 /* ── Balloons ──────────────────────────────────────────────────── */
@@ -417,19 +430,29 @@ body {
   overflow-wrap: break-word;
 }
 
-/* ── Confetti ──────────────────────────────────────────────────── */
-.section-confetti {
-  position: fixed !important;
-  inset: 0;
-  pointer-events: none;
-  z-index: 3;
+/* ── Confetti & Fireworks Sections ─────────────────────────── */
+.section-confetti,
+.section-fireworks {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 3; /* fireworks z-index = 4 in HTML */
 }
 
+/* ── Confetti Dots ─────────────────────────────────────────── */
 .confetti-dot {
-  position: absolute;
-  width: 20px;
-  visibility: hidden;
+    position: absolute;
+    width: 2vw;
+    height: 2vw;
+    background-color: red; /* you can change dynamically via JS */
+    border-radius: 50%;
+    visibility: hidden;
 }
+
 
 /* ── Closing ───────────────────────────────────────────────────── */
 .section-closing p {
@@ -606,3 +629,36 @@ body {
 .replay-btn {
   color: var(--primary) !important;
 }
+
+
+
+
+/* ── Starry Background Overlay ───────────────────────────────── */
+.starry-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1; /* behind all content */
+  background: transparent;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.starry-bg .star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.6;
+  animation: twinkle 2s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0%   { opacity: 0.1; transform: scale(0.5); }
+  50%  { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 0.1; transform: scale(0.5); }
+}
+
+
+
+
+
+
