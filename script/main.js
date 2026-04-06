@@ -8,27 +8,28 @@ let currentMode = (CONFIG.defaultMode || "dark");
 
 function forceLandscape() {
   const container = document.querySelector('.container');
-  const rotateStyle = () => {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    
-    if (h > w) {
-      // Portrait → rotate content
-      const scale = w / h; // scale to fit width
-      container.style.transform = `rotate(-90deg) scale(${scale})`;
-      container.style.transformOrigin = 'top left';
-      container.style.position = 'absolute';
-      container.style.top = `${h}px`; // move down after rotation
-      container.style.left = `0`;
-    } else {
-      // Landscape → reset
-      container.style.transform = '';
-      container.style.transformOrigin = '';
-      container.style.position = '';
-      container.style.top = '';
-      container.style.left = '';
-    }
-  };
+ function rotateStyle() {
+  const container = document.querySelector('.container');
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+
+  if (h > w) {
+    // Portrait → rotate content to left
+    const scale = w / h; // scale to fit width
+    container.style.position = 'absolute';
+    container.style.top = '50%';
+    container.style.left = '50%';
+    container.style.transform = `translate(-50%, -50%) rotate(90deg) scale(${scale})`;
+    container.style.transformOrigin = 'center center';
+  } else {
+    // Landscape → reset
+    container.style.position = '';
+    container.style.top = '';
+    container.style.left = '';
+    container.style.transform = '';
+    container.style.transformOrigin = '';
+  }
+};
 
   rotateStyle();
   window.addEventListener('resize', rotateStyle);
@@ -37,6 +38,7 @@ function forceLandscape() {
 
 // Call on load
 forceLandscape();
+
 
 
 function applyTheme(mode) {
