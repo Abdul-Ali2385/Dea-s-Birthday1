@@ -14,8 +14,11 @@ function forceLandscape() {
   const h = window.innerHeight;
 
   if (h > w) {
-    // Portrait → rotate content to left
-    const scale = w / h; // scale to fit width
+    // Portrait → rotate left and scale larger
+    const baseScale = w / h;          // scale to fit width
+    const extraScale = 1.2;           // 1.2x bigger on phones, adjust as needed
+    const scale = baseScale * extraScale;
+
     container.style.position = 'absolute';
     container.style.top = '50%';
     container.style.left = '50%';
@@ -29,11 +32,12 @@ function forceLandscape() {
     container.style.transform = '';
     container.style.transformOrigin = '';
   }
-};
+}
 
-  rotateStyle();
-  window.addEventListener('resize', rotateStyle);
-  window.addEventListener('orientationchange', rotateStyle);
+// Initial call
+rotateStyle();
+window.addEventListener('resize', rotateStyle);
+window.addEventListener('orientationchange', rotateStyle);
 }
 
 // Call on load
@@ -184,3 +188,51 @@ function buildTimeline(rendered) {
     replayBtn.addEventListener("click", () => tl.restart());
   }
 }
+
+
+
+
+
+
+
+
+
+// ── Starry Background Setup ─────────────────────────────
+function createStarryBackground(numStars = 120) {
+  const bg = document.createElement('div');
+  bg.className = 'starry-bg';
+  document.body.prepend(bg); // behind everything
+
+  for (let i = 0; i < numStars; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+
+    // random size, position, and animation duration
+    const size = Math.random() * 3 + 1; // 1px – 4px
+    const top = Math.random() * 100;
+    const left = Math.random() * 100;
+    const duration = Math.random() * 3 + 2; // 2s – 5s
+
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.top = `${top}%`;
+    star.style.left = `${left}%`;
+    star.style.animationDuration = `${duration}s`;
+
+    bg.appendChild(star);
+  }
+}
+
+// Call on page load
+createStarryBackground();
+
+
+
+
+// Firework center position
+const centerX = Math.random() * window.innerWidth;
+
+// Use smaller vertical range for landscape phones
+const centerY = (window.innerWidth > window.innerHeight)
+    ? Math.random() * (window.innerHeight * 0.4)  // top 40% in landscape
+    : Math.random() * (window.innerHeight / 2);   // top 50% in portrait
