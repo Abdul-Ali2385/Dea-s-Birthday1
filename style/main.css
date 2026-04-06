@@ -29,6 +29,13 @@ body {
   transition: background 0.5s ease, color 0.5s ease;
 }
 
+@font-face {
+    font-family: 'BookmanOld';
+    src: url('fonts/bookmanoldstyle.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* ── Audio ──────────────────────────────────────────────────────── */
 .song {
   display: none;
