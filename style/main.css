@@ -301,37 +301,3 @@ html, body {
   margin-top: 20px;
   z-index: 3;
 }
-
-
-/* Add this to your style.css or inject it via JS */
-.section-ideas {
-    padding: 0 10% !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.section-ideas p {
-    /* clamp(minimum, preferred, maximum) */
-    font-size: clamp(1.2rem, 3.5vw, 2.2rem) !important;
-    line-height: 1.6;
-    margin: 0.8rem 0;
-    font-weight: 400;
-}
-
-.section-ideas strong {
-    font-size: 1.3em;
-    color: var(--primary);
-    text-shadow: 0 0 10px rgba(244, 114, 182, 0.3);
-}
-
-.big-letters {
-    font-size: clamp(5rem, 20vw, 12rem) !important;
-    font-weight: 900;
-    letter-spacing: -2px;
-    line-height: 0.8;
-    margin-top: 1.5rem;
-    color: var(--primary);
-    display: block;
-}
